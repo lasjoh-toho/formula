@@ -1,0 +1,46 @@
+name: Build & Release latest
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Tests
+        run: node tools/test.js
+
+      - name: Plugin-ZIPs bauen
+        run: |
+          # Der Ordner im ZIP muss "formula" heißen (Moodle leitet den Plugin-Namen aus dem Ordner ab).
+          for p in tiny atto; do
+            mkdir -p "build/$p"
+            cp -r "$p/formula" "build/$p/formula"
+            (cd "build/$p" && zip -r "../../${p}_formula.zip" formula)
+          done
+          ls -l *.zip
+
+      - name: Release veröffentlichen (stabiler 'latest'-Link)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: "Neueste Version"
+          body: |
+            Automatisch erzeugter Build vom neuesten `main`-Stand.
+
+            - `tiny_formula.zip`: TinyMCE (Moodle 4.1+), entpackt nach `lib/editor/tiny/plugins/formula`
+            - `atto_formula.zip`: Atto (Moodle 3.9 bis 4.4), entpackt nach `lib/editor/atto/plugins/formula`
+
+            Commit: ${{ github.sha }}
+          files: |
+            tiny_formula.zip
+            atto_formula.zip
+          make_latest: true

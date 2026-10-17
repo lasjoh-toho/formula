@@ -1,0 +1,15 @@
+{
+  "name": "moodle-formula-editor",
+  "private": true,
+  "description": "Formula editor for the Moodle text editors (tiny_formula and atto_formula)",
+  "scripts": {
+    "build": "node tools/build.js",
+    "test": "node tools/test.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-transform-modules-amd": "^7.25.0",
+    "@babel/preset-env": "^7.26.0",
+    "terser": "^5.36.0"
+  }
+}
