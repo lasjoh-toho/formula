@@ -22,9 +22,14 @@ Der Formeleditor aus der Pinnwand als Formel-Knopf für die beiden Moodle-Texted
 3. TinyMCE: Der Knopf erscheint in der Werkzeugleiste und im Menü *Einfügen*. Wer die Werkzeugleiste angepasst hat, ergänzt `tiny_formula/tiny_formula` unter *Website-Administration → Plugins → Texteditoren → TinyMCE → Werkzeugleiste*.
 4. Atto: Unter *Atto-Werkzeugleisteneinstellungen* eine Zeile wie `insert = link, media, formula` ergänzen.
 
+## Demo
+
+`demo/index.html` zeigt den Formel-Knopf in einem Textfeld mit Live-Darstellung. Als eigenständiger Download gibt es sie im Release „latest" als `formeleditor-demo.zip`: entpacken und `index.html` im Browser öffnen, ein Server ist nicht nötig. Aus dem Repo heraus läuft sie über einen beliebigen statischen Server (z. B. `npx serve`) vom Repo-Wurzelordner aus.
+
 ## Aufbau des Repos
 
 - `shared/web/` – der gemeinsame Teil: Formeleditor (`formeleditor/`), KaTeX (`katex/`) und der Dialog (`formula-dialog.js`, `.css`).
+- `demo/` – die Demoseite.
 - `tiny/formula/` – das TinyMCE-Plugin (AMD-Module in `amd/src`).
 - `atto/formula/` – das Atto-Plugin (YUI-Modul in `yui/src/button`).
 - `tools/build.js` kopiert `shared/web` in beide Plugins (`web/`) und erzeugt `amd/build` und `yui/build`. Die gebauten Dateien sind eingecheckt, damit die Ordner direkt installierbar sind. Nach Änderungen: `npm install && npm run build`, dann `npm test`.

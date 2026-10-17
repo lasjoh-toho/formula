@@ -26,6 +26,11 @@ jobs:
             cp -r "$p/formula" "build/$p/formula"
             (cd "build/$p" && zip -r "../../${p}_formula.zip" formula)
           done
+          # Eigenständige Demo: Seite plus Formeleditor, läuft per Doppelklick ohne Server.
+          mkdir -p build/demo/formeleditor-demo
+          cp -r shared/web build/demo/formeleditor-demo/web
+          sed 's#\.\./shared/web/#web/#g' demo/index.html > build/demo/formeleditor-demo/index.html
+          (cd build/demo && zip -r ../../formeleditor-demo.zip formeleditor-demo)
           ls -l *.zip
 
       - name: Release veröffentlichen (stabiler 'latest'-Link)
@@ -39,8 +44,11 @@ jobs:
             - `tiny_formula.zip`: TinyMCE (Moodle 4.1+), entpackt nach `lib/editor/tiny/plugins/formula`
             - `atto_formula.zip`: Atto (Moodle 3.9 bis 4.4), entpackt nach `lib/editor/atto/plugins/formula`
 
+            - `formeleditor-demo.zip`: eigenständige Demoseite, entpacken und `index.html` öffnen
+
             Commit: ${{ github.sha }}
           files: |
             tiny_formula.zip
             atto_formula.zip
+            formeleditor-demo.zip
           make_latest: true
