@@ -24,7 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'tiny_formula';
-$plugin->version   = 2026101700;
+$plugin->version   = 2026110600;
 $plugin->requires  = 2022112800; // Moodle 4.1 (first release with TinyMCE).
 $plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = '0.1.0';
+$plugin->release   = '0.2.0';

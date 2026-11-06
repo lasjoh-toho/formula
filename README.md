@@ -32,6 +32,7 @@ Der Formeleditor aus der Pinnwand als Formel-Knopf für die beiden Moodle-Texted
 - `demo/` – die Demoseite.
 - `tiny/formula/` – das TinyMCE-Plugin (AMD-Module in `amd/src`).
 - `atto/formula/` – das Atto-Plugin (YUI-Modul in `yui/src/button`).
+- `shared/web/formeleditor/compute-engine.min.js` – [Compute Engine](https://github.com/cortex-js/compute-engine) 0.173.0 (MIT) für „Umformen → Algebra“ (Ausmultiplizieren, Faktorisieren mit binomischen Formeln, Vereinfachen, Lösen). Wird erst beim Öffnen von „Umformen“ geladen. Neu bauen: `npm i @cortex-js/compute-engine` und `echo "export { ComputeEngine } from '@cortex-js/compute-engine';" > e.mjs && npx esbuild e.mjs --bundle --minify --format=iife --global-name=ComputeEngine --target=es2020 --legal-comments=none --outfile=shared/web/formeleditor/compute-engine.min.js`.
 - `tools/build.js` kopiert `shared/web` in beide Plugins (`web/`) und erzeugt `amd/build` und `yui/build`. Die gebauten Dateien sind eingecheckt, damit die Ordner direkt installierbar sind. Nach Änderungen: `npm install && npm run build`, dann `npm test`.
 - Bei jedem Push auf `main` baut ein GitHub-Workflow beide ZIPs und aktualisiert den Release „latest".
 
